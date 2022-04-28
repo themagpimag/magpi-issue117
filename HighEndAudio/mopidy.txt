@@ -1,0 +1,10 @@
+wget -q -O - https://apt.mopidy.com/mopidy.gpg | sudo apt-key add -
+sudo wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/bullseye.list
+sudo apt update
+sudo apt install mopidy python3-pip
+sudo adduser mopidy video
+sudo pip3 install Mopidy-Iris
+sudo pip3 install Mopidy-Local
+sudo sh -c 'echo "mopidy ALL=NOPASSWD: /usr/local/lib/python3.9/dist-packages/mopidy_iris/system.sh" >> /etc/sudoers’
+mkdir -p ~/Music
+sudo systemctl enable mopidy
