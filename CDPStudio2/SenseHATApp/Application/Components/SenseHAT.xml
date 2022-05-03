@@ -1,0 +1,34 @@
+<Component Model='CDPComponent' Name='SenseHAT' src='Components/SenseHAT.xml' Description="Recipe for CDPComponent containing relevant Sense HAT signals and a pre-configured I2CIOServer with Sense HAT devices.">
+  <SchedulingOrder>TopDown</SchedulingOrder>
+  <SchedulingGroup>Default</SchedulingGroup>
+  <fs>100</fs>
+  <Status>0</Status>
+
+
+  <Signals>
+    <Signal Description="Process run time each s." Input="0" Model="CDPSignal&lt;double&gt;" Name="Process Timer" Type="double" Unit="s/s"></Signal>
+    <Signal Description="Process interval [s]." Input="0" Model="CDPSignal&lt;double&gt;" Name="Process Period" Type="double" Unit="s"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="AngularRateX" Type="double" Unit="dps" Description="Angular rate X component in degrees per second (dps). The default range is -245dps...245dps" Routing=".SenseHATI2CIOServer.LSM9DS1AccelerometerGyroscope.AngularRate.AngularRateX"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="AngularRateY" Type="double" Unit="dps" Description="Angular rate Y component in degrees per second (dps). The default range is -245dps...245dps" Routing=".SenseHATI2CIOServer.LSM9DS1AccelerometerGyroscope.AngularRate.AngularRateY"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="AngularRateZ" Type="double" Unit="dps" Description="Angular rate Z component in degrees per second (dps). The default range is -245dps...245dps" Routing=".SenseHATI2CIOServer.LSM9DS1AccelerometerGyroscope.AngularRate.AngularRateZ"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="AccelerationX" Type="double" Unit="g" Description="Acceleration X component in multiples of g-force (g). The default range is -2g...2g" Routing=".SenseHATI2CIOServer.LSM9DS1AccelerometerGyroscope.Acceleration.AccelerationX"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="AccelerationY" Type="double" Unit="g" Description="Acceleration Y component in multiples of g-force (g). The default range is -2g...2g" Routing=".SenseHATI2CIOServer.LSM9DS1AccelerometerGyroscope.Acceleration.AccelerationY"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="AccelerationZ" Type="double" Unit="g" Description="Acceleration Z component in multiples of g-force (g). The default range is -2g...2g" Routing=".SenseHATI2CIOServer.LSM9DS1AccelerometerGyroscope.Acceleration.AccelerationZ"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="MagneticFieldX" Type="double" Unit="G" Description="Magnetic field X component in gauss (G). The default range is -4G...4G" Routing=".SenseHATI2CIOServer.LSM9DS1Magnetometer.MagneticField.MagneticFieldX"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="MagneticFieldY" Type="double" Unit="G" Description="Magnetic field Y component in gauss (G). The default range is -4G...4G" Routing=".SenseHATI2CIOServer.LSM9DS1Magnetometer.MagneticField.MagneticFieldY"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="MagneticFieldZ" Type="double" Unit="G" Description="Magnetic field Z component in gauss (G). The default range is -4G...4G" Routing=".SenseHATI2CIOServer.LSM9DS1Magnetometer.MagneticField.MagneticFieldZ"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="Pressure" Type="double" Unit="hPa" Description="Absolute pressure measured in hectopascal (hPa). The device range is 260hPa to 1260hPa" Routing=".SenseHATI2CIOServer.LPS25HPressure.Pressure.CurrentValue"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="PressureTemperature" Type="double" Unit="°C" Description="Temperature measured in degree Celsius (°C). The device range is -30°C to +105°C" Routing=".SenseHATI2CIOServer.LPS25HPressure.Temperature.CurrentValue"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="Humidity" Type="double" Unit="%" Description="Relative humidity measured in percent (%). The device range is 20% to 80%" Routing=".SenseHATI2CIOServer.HTS221HumidTemp.Humidity.CurrentValue"></Signal>
+    <Signal Input="0" Model="CDPSignal&lt;double&gt;" Name="HumidityTemperature" Type="double" Unit="°C" Description="Temperature measured in degree Celsius (°C). The device range is +15°C to +40°C" Routing=".SenseHATI2CIOServer.HTS221HumidTemp.Temperature.CurrentValue"></Signal>
+  </Signals>
+
+  <Alarms>
+    <Alarm Description="A component was suspended!" Name="Component Suspended" Text="Component was suspended!"></Alarm>
+  </Alarms>
+
+  <Subcomponents>
+    <Subcomponent Adapter="/dev/i2c-1" Model="I2CIOServer" Name="SenseHATI2CIOServer" src="Components/SenseHAT/SenseHATI2CIOServer.xml"></Subcomponent>
+  </Subcomponents>
+
+</Component>

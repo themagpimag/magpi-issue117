@@ -1,0 +1,213 @@
+<Component Adapter='/dev/i2c-1' Model='I2CIOServer' Name='SenseHATI2CIOServer' src='Components/SenseHAT/SenseHATI2CIOServer.xml' Description="Communicate with external devices over I2C bus">
+  <SchedulingOrder>TopDown</SchedulingOrder>
+  <SchedulingGroup>Default</SchedulingGroup>
+  <Priority>high</Priority>
+  <fs>100</fs>
+  <Status>0</Status>
+
+
+  <Signals>
+    <Signal Description="Process run time each s." Input="0" Model="CDPSignal&lt;double&gt;" Name="Process Timer" Type="double" Unit="s/s"></Signal>
+    <Signal Description="Process interval [s]." Input="0" Model="CDPSignal&lt;double&gt;" Name="Process Period" Type="double" Unit="s"></Signal>
+    <Signal Description="If implemented by spesific IOServer the signal can be set true to disable output." Input="1" Model="CDPSignal&lt;bool&gt;" Name="OutputDisable" Type="bool"></Signal>
+    <Signal Description="The time needed to perform one send and receive." Input="0" Model="CDPSignal&lt;double&gt;" Name="Send-Receive Roundtrip time" Type="double" Unit="s"></Signal>
+    <Signal Description="Number of items working in ioserver." Input="0" Model="CDPSignal&lt;unsigned int&gt;" Name="NumberOfNodesOnline" Type="unsigned int" Unit="count"></Signal>
+    <Signal Description="Number of items total in ioserver." Input="0" Model="CDPSignal&lt;unsigned int&gt;" Name="NumberOfNodes" Type="unsigned int" Unit="count"></Signal>
+  </Signals>
+
+  <Alarms>
+    <Alarm Description="A component was suspended!" Name="Component Suspended" Text="Component was suspended!"></Alarm>
+    <Alarm Description="Transmission-error alarm" Name="Transmission Error" Text="IOServer transmission-error alarm"></Alarm>
+  </Alarms>
+
+  <Parameters>
+    <Parameter Description="Delay before setting Transmission Error alarm." Name="SignalTimeout" PreviousValue="1" TimeLastChanged="0" Unit="s" Value="1"></Parameter>
+  </Parameters>
+
+  <Timers>
+    <Timer Description="Timer used to delay setting Transmission Error alarm. Timeout-delay is configured in Parameter SignalTimeout." Model="CDPParameterTimer" Name="SignalTimeoutTimer"></Timer>
+  </Timers>
+  <Device Address="106" Model="LSM9DS1AccelerometerGyroscope" Name="LSM9DS1AccelerometerGyroscope">
+    <ChannelGroup Address="16" Input="0" Name="Control1">
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="BW_G0" Nr="0" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="BW_G1" Nr="1" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Placeholder" Nr="2" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="FS_G0" Nr="3" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="FS_G1" Nr="4" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="ODR_G0" Nr="5" Type="bool" Value="1"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="ODR_G1" Nr="6" Type="bool" Value="1"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="ODR_G2" Nr="7" Type="bool"></Channel></ChannelGroup>
+    <ChannelGroup Address="24" Input="1" Name="AngularRate">
+      <Channel Description="Angular rate X component in degrees per second (dps). The default range is -245dps...245dps" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="AngularRateX" Type="short" Unit="dps">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScalingOperator" Type="double">
+          <ScalingPoint InValue="-32768" Model="Automation.ScalingPoint&lt;double&gt;" Name="Min" OutValue="-245" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="32767" Model="Automation.ScalingPoint&lt;double&gt;" Name="Max" OutValue="245" Type="double"></ScalingPoint></Operator></Channel>
+      <Channel Description="Angular rate Y component in degrees per second (dps). The default range is -245dps...245dps" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="AngularRateY" Type="short" Unit="dps">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScalingOperator" Type="double">
+          <ScalingPoint InValue="-32768" Model="Automation.ScalingPoint&lt;double&gt;" Name="Min" OutValue="-245" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="32767" Model="Automation.ScalingPoint&lt;double&gt;" Name="Max" OutValue="245" Type="double"></ScalingPoint></Operator></Channel>
+      <Channel Description="Angular rate Z component in degrees per second (dps). The default range is -245dps...245dps" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="AngularRateZ" Type="short" Unit="dps">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScalingOperator" Type="double">
+          <ScalingPoint InValue="-32768" Model="Automation.ScalingPoint&lt;double&gt;" Name="Min" OutValue="-245" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="32767" Model="Automation.ScalingPoint&lt;double&gt;" Name="Max" OutValue="245" Type="double"></ScalingPoint></Operator></Channel></ChannelGroup>
+    <ChannelGroup Address="40" Input="1" Name="Acceleration">
+      <Channel Description="Acceleration X component in multiples of g-force (g). The default range is -2g...2g" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="AccelerationX" Type="short" Unit="g">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScalingOperator" Type="double">
+          <ScalingPoint InValue="-32768" Model="Automation.ScalingPoint&lt;double&gt;" Name="Min" OutValue="-2" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="32767" Model="Automation.ScalingPoint&lt;double&gt;" Name="Max" OutValue="2" Type="double"></ScalingPoint></Operator></Channel>
+      <Channel Description="Acceleration Y component in multiples of g-force (g). The default range is -2g...2g" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="AccelerationY" Type="short" Unit="g">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScalingOperator" Type="double">
+          <ScalingPoint InValue="-32768" Model="Automation.ScalingPoint&lt;double&gt;" Name="Min" OutValue="-2" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="32767" Model="Automation.ScalingPoint&lt;double&gt;" Name="Max" OutValue="2" Type="double"></ScalingPoint></Operator></Channel>
+      <Channel Description="Acceleration Z component in multiples of g-force (g). The default range is -2g...2g" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="AccelerationZ" Type="short" Unit="g">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScalingOperator" Type="double">
+          <ScalingPoint InValue="-32768" Model="Automation.ScalingPoint&lt;double&gt;" Name="Min" OutValue="-2" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="32767" Model="Automation.ScalingPoint&lt;double&gt;" Name="Max" OutValue="2" Type="double"></ScalingPoint></Operator></Channel></ChannelGroup></Device>
+  <Device Address="28" Model="LSM9DS1Magnetometer" Name="LSM9DS1Magnetometer">
+    <ChannelGroup Address="34" Input="0" Name="Control3">
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="MD0" Nr="0" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="MD1" Nr="1" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="SIM" Nr="2" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Placeholder2" Nr="3" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Placeholder1" Nr="4" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="LP" Nr="5" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Placeholder0" Nr="6" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="I2C_DISABLE" Nr="7" Type="bool"></Channel></ChannelGroup>
+    <ChannelGroup Address="40" Input="1" Name="MagneticField">
+      <Channel Description="Magnetic field X component in gauss (G). The default range is -4G...4G" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="MagneticFieldX" Type="short" Unit="G">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScalingOperator" Type="double">
+          <ScalingPoint InValue="-32768" Model="Automation.ScalingPoint&lt;double&gt;" Name="Min" OutValue="-4" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="32767" Model="Automation.ScalingPoint&lt;double&gt;" Name="Max" OutValue="4" Type="double"></ScalingPoint></Operator></Channel>
+      <Channel Description="Magnetic field Y component in gauss (G). The default range is -4G...4G" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="MagneticFieldY" Type="short" Unit="G">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScalingOperator" Type="double">
+          <ScalingPoint InValue="-32768" Model="Automation.ScalingPoint&lt;double&gt;" Name="Min" OutValue="-4" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="32767" Model="Automation.ScalingPoint&lt;double&gt;" Name="Max" OutValue="4" Type="double"></ScalingPoint></Operator></Channel>
+      <Channel Description="Magnetic field Z component in gauss (G). The default range is -4G...4G" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="MagneticFieldZ" Type="short" Unit="G">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScalingOperator" Type="double">
+          <ScalingPoint InValue="-32768" Model="Automation.ScalingPoint&lt;double&gt;" Name="Min" OutValue="-4" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="32767" Model="Automation.ScalingPoint&lt;double&gt;" Name="Max" OutValue="4" Type="double"></ScalingPoint></Operator></Channel></ChannelGroup></Device>
+  <Device Address="92" Model="LPS25HPressure" Name="LPS25HPressure">
+    <ChannelGroup Address="136" Input="1" Name="RefPressure">
+      <Channel Input="0" Model="CDPSignalChannel&lt;int&gt;" Name="CurrentValue" Type="int">
+        <Operator Description="Arithmetic left shift operator" Model="Automation.LeftShiftOperator&lt;int&gt;" Name="PurgeMSB" Type="int">
+          <Argument CppName="" Description="Number of bits to shift" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="Shift" Routing="" Type="unsigned char" Value="8"></Argument></Operator>
+        <Operator Description="Arithmetic right shift operator" Model="Automation.RightShiftOperator&lt;int&gt;" Name="RestoreMagnitude" Type="int">
+          <Argument CppName="" Description="Number of bits to shift" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="Shift" Routing="" Type="unsigned char" Value="8"></Argument></Operator>
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScaleToSIValue" Type="double">
+          <ScalingPoint InValue="-4096" Model="Automation.ScalingPoint&lt;double&gt;" Name="Neg4096Point" OutValue="-1" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="4096" Model="Automation.ScalingPoint&lt;double&gt;" Name="Pos4096Point" OutValue="1" Type="double"></ScalingPoint></Operator></Channel></ChannelGroup>
+    <ChannelGroup Address="16" Input="0" Name="ControlAveraging">
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="PressureAV0" Nr="0" Type="bool" Unit="N/A" Value="1"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="PressureAV1" Nr="1" Type="bool" Unit="N/A" Value="1"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="TemperatureAV0" Nr="2" Type="bool" Unit="N/A" Value="1"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="TemperatoreAV1" Nr="3" Type="bool" Unit="N/A" Value="1"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved0" Nr="4" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved1" Nr="5" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved2" Nr="6" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved3" Nr="7" Type="bool" Unit="N/A"></Channel></ChannelGroup>
+    <ChannelGroup Address="32" Input="0" Name="Control1">
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="SPIModeSelect" Nr="0" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="ResetAutoZero" Nr="1" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="BlockDataUpdate" Nr="2" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="InterruptEnable" Nr="3" Type="bool" Unit="N/A" Value="1"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="ODR0" Nr="4" Type="bool" Unit="N/A" Value="1"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="ODR1" Nr="5" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="ODR2" Nr="6" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Active" Nr="7" Type="bool" Unit="N/A" Value="1"></Channel></ChannelGroup>
+    <ChannelGroup Address="33" Input="0" Name="Control2">
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="OneShot" Nr="0" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="AutoZeroEnable" Nr="1" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="SoftwareReset" Nr="2" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="SPIEnable" Nr="3" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="EnableDecimation" Nr="4" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="FIFOWatermarEnable" Nr="5" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="FIFOEnable" Nr="6" Type="bool" Unit="N/A"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="RebootMemContent" Nr="7" Type="bool" Unit="N/A"></Channel></ChannelGroup>
+    <ChannelGroup Address="168" Input="1" Name="Pressure">
+      <Channel Description="Absolute pressure measured in hectopascal (hPa). The device range is 260hPa to 1260hPa" Input="0" Model="CDPSignalChannel&lt;int&gt;" Name="CurrentValue" Type="int" Unit="hPa">
+        <Operator Description="Arithmetic left shift operator" Model="Automation.LeftShiftOperator&lt;int&gt;" Name="PurgeMSB" Type="int">
+          <Argument CppName="" Description="Number of bits to shift" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="Shift" Routing="" Type="unsigned char" Value="8"></Argument></Operator>
+        <Operator Description="Arithmetic right shift operator" Model="Automation.RightShiftOperator&lt;int&gt;" Name="RestoreMagnitude" Type="int">
+          <Argument CppName="" Description="Number of bits to shift" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="Shift" Routing="" Type="unsigned char" Value="8"></Argument></Operator>
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScaleToSIValue" Type="double">
+          <ScalingPoint InValue="-4096" Model="Automation.ScalingPoint&lt;double&gt;" Name="LowerBound" OutValue="-1" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="4096" Model="Automation.ScalingPoint&lt;double&gt;" Name="UpperBound" OutValue="1" Type="double"></ScalingPoint></Operator></Channel></ChannelGroup>
+    <ChannelGroup Address="171" Input="1" Name="Temperature">
+      <Channel Description="Temperature measured in degree Celsius (°C). The device range is -30°C to +105°C" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="CurrentValue" Type="short" Unit="°C">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="ScalingOperator" Type="double">
+          <ScalingPoint InValue="0" Model="Automation.ScalingPoint&lt;double&gt;" Name="ZeroPoint" OutValue="0" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="480" Model="Automation.ScalingPoint&lt;double&gt;" Name="DivideBy480" OutValue="1" Type="double"></ScalingPoint></Operator>
+        <Operator Description="Offset operator performing value + offset operation" Model="Automation.OffsetOperator&lt;double&gt;" Name="OffsetOperator" Offset="42.5" Type="double"></Operator></Channel></ChannelGroup></Device>
+  <Device Address="95" Model="HTS221HumidTemp" Name="HTS221HumidTemp">
+    <ChannelGroup Address="160" Input="0" Name="Control1">
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="ORD0" Nr="0" Type="bool" Value="1"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="ORD1" Nr="1" Type="bool" Value="1"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved0" Nr="2" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved1" Nr="3" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved2" Nr="4" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved3" Nr="5" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved4" Nr="6" Type="bool"></Channel>
+      <Channel Input="1" Model="CDPSignalChannel&lt;bool&gt;" Name="Active" Nr="7" Type="bool" Value="1"></Channel></ChannelGroup>
+    <ChannelGroup Address="168" Input="1" Name="Humidity">
+      <Channel Description="Relative humidity measured in percent (%). The device range is 20% to 80%" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="CurrentValue" Type="short" Unit="%">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="Calibrate" Type="double">
+          <ScalingPoint InValue="6" InValueRouting="....Calibration.H0_T0_OUT" Model="Automation.ScalingPoint&lt;double&gt;" Name="Low" OutValue="30" OutValueRouting="....Calibration.H0_rH_x2" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="-9432" InValueRouting="....Calibration.H1_T0_OUT" Model="Automation.ScalingPoint&lt;double&gt;" Name="High" OutValue="68.5" OutValueRouting="....Calibration.H1_rH_x2" Type="double"></ScalingPoint></Operator></Channel></ChannelGroup>
+    <ChannelGroup Address="170" Input="1" Name="Temperature">
+      <Channel Description="Temperature measured in degree Celsius (°C). The device range is +15°C to +40°C" Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="CurrentValue" Type="short" Unit="°C">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="Calibrator" Type="double">
+          <ScalingPoint InValue="4" InValueRouting="....Calibration.T0_OUT" Model="Automation.ScalingPoint&lt;double&gt;" Name="Low" OutValue="21.125" OutValueRouting="....Calibration.T0_degC_x8" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="833" InValueRouting="....Calibration.T1_OUT" Model="Automation.ScalingPoint&lt;double&gt;" Name="High" OutValue="35.875" OutValueRouting="....Calibration.T1_degC_x8" Type="double"></ScalingPoint></Operator></Channel></ChannelGroup>
+    <ChannelGroup Address="176" Input="1" Name="Calibration">
+      <Channel Input="0" Model="CDPSignalChannel&lt;unsigned char&gt;" Name="H0_rH_x2" Type="unsigned char">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="Div2" Type="double">
+          <ScalingPoint InValue="2" Model="Automation.ScalingPoint&lt;double&gt;" Name="High" OutValue="1" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="0" Model="Automation.ScalingPoint&lt;double&gt;" Name="Low" OutValue="0" Type="double"></ScalingPoint></Operator></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;unsigned char&gt;" Name="H1_rH_x2" Type="unsigned char">
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="Div2" Type="double">
+          <ScalingPoint InValue="2" Model="Automation.ScalingPoint&lt;double&gt;" Name="High" OutValue="1" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="0" Model="Automation.ScalingPoint&lt;double&gt;" Name="Low" OutValue="0" Type="double"></ScalingPoint></Operator></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;unsigned char&gt;" Name="T0_degC_x8" Type="unsigned char">
+        <Operator Model="Automation.BitPackOperator&lt;short&gt;" Name="Add_T0_bit8" Type="short">
+          <Argument CppName="" Description="Boolean Value to pack as bit given by BitNo" Input="1" Model="DefaultArgument&lt;bool&gt;" Name="Source" Routing="...T0_8" Type="bool" Value="0"></Argument>
+          <Argument CppName="" Description="Where to pack the bit value in output" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="BitNo" Routing="" Type="unsigned char" Value="8"></Argument></Operator>
+        <Operator Model="Automation.BitPackOperator&lt;short&gt;" Name="Add_T0_bit9" Type="short">
+          <Argument CppName="" Description="Boolean Value to pack as bit given by BitNo" Input="1" Model="DefaultArgument&lt;bool&gt;" Name="Source" Routing="...T0_9" Type="bool" Value="0"></Argument>
+          <Argument CppName="" Description="Where to pack the bit value in output" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="BitNo" Routing="" Type="unsigned char" Value="9"></Argument></Operator>
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="Div8" Type="double">
+          <ScalingPoint InValue="8" Model="Automation.ScalingPoint&lt;double&gt;" Name="High" OutValue="1" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="0" Model="Automation.ScalingPoint&lt;double&gt;" Name="Low" OutValue="0" Type="double"></ScalingPoint></Operator></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;unsigned char&gt;" Name="T1_degC_x8" Type="unsigned char">
+        <Operator Model="Automation.BitPackOperator&lt;short&gt;" Name="Add_T1_bit8" Type="short">
+          <Argument CppName="" Description="Boolean Value to pack as bit given by BitNo" Input="1" Model="DefaultArgument&lt;bool&gt;" Name="Source" Routing="...T1_8" Type="bool" Value="0"></Argument>
+          <Argument CppName="" Description="Where to pack the bit value in output" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="BitNo" Routing="" Type="unsigned char" Value="8"></Argument></Operator>
+        <Operator Model="Automation.BitPackOperator&lt;short&gt;" Name="Add_T1_bit9" Type="short">
+          <Argument CppName="" Description="Boolean Value to pack as bit given by BitNo" Input="1" Model="DefaultArgument&lt;bool&gt;" Name="Source" Routing="...T1_9" Type="bool" Value="0"></Argument>
+          <Argument CppName="" Description="Where to pack the bit value in output" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="BitNo" Routing="" Type="unsigned char" Value="9"></Argument></Operator>
+        <Operator Interpolation="Linear" Model="Automation.ScalingOperator&lt;double&gt;" Name="Div8" Type="double">
+          <ScalingPoint InValue="8" Model="Automation.ScalingPoint&lt;double&gt;" Name="High" OutValue="1" Type="double"></ScalingPoint>
+          <ScalingPoint InValue="0" Model="Automation.ScalingPoint&lt;double&gt;" Name="Low" OutValue="0" Type="double"></ScalingPoint></Operator></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;unsigned char&gt;" Name="Reserved0" Type="unsigned char"></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;bool&gt;" Name="T0_8" Nr="0" Type="bool">
+        <Operator Description="Arithmetic left shift operator" Model="Automation.LeftShiftOperator&lt;short&gt;" Name="MakeBit8" Type="short">
+          <Argument CppName="" Description="Number of bits to shift" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="Shift" Routing="" Type="unsigned char" Value="8"></Argument></Operator></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;bool&gt;" Name="T0_9" Nr="1" Type="bool">
+        <Operator Description="Arithmetic left shift operator" Model="Automation.LeftShiftOperator&lt;short&gt;" Name="MakeBit9" Type="short">
+          <Argument CppName="" Description="Number of bits to shift" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="Shift" Routing="" Type="unsigned char" Value="9"></Argument></Operator></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;bool&gt;" Name="T1_8" Nr="2" Type="bool">
+        <Operator Description="Arithmetic left shift operator" Model="Automation.LeftShiftOperator&lt;short&gt;" Name="MakeBit8" Type="short">
+          <Argument CppName="" Description="Number of bits to shift" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="Shift" Routing="" Type="unsigned char" Value="8"></Argument></Operator></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;bool&gt;" Name="T1_9" Nr="3" Type="bool">
+        <Operator Description="Arithmetic left shift operator" Model="Automation.LeftShiftOperator&lt;short&gt;" Name="MakeBit9" Type="short">
+          <Argument CppName="" Description="Number of bits to shift" Input="1" Model="DefaultArgument&lt;unsigned char&gt;" Name="Shift" Routing="" Type="unsigned char" Value="9"></Argument></Operator></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved1" Nr="4" Type="bool"></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved2" Nr="5" Type="bool"></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved3" Nr="6" Type="bool"></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;bool&gt;" Name="Reserved4" Nr="7" Type="bool"></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="H0_T0_OUT" Type="short"></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;unsigned short&gt;" Name="Reserved5" Type="unsigned short"></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="H1_T0_OUT" Type="short"></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="T0_OUT" Type="short"></Channel>
+      <Channel Input="0" Model="CDPSignalChannel&lt;short&gt;" Name="T1_OUT" Type="short"></Channel></ChannelGroup></Device>
+
+</Component>

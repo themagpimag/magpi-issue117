@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainWindow</class>
+ <widget class="CDPBaseMainWindow" name="mainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1123</width>
+    <height>727</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Main Window</string>
+  </property>
+  <property name="msgBoxBgSvg">
+   <string>:/themes/flat_gray_light/backgrounds/bgMsgBox.svg</string>
+  </property>
+  <property name="msgBoxBtnSvg">
+   <string>:/themes/flat_gray_light/buttons/buttonPlain.svg</string>
+  </property>
+  <property name="themeNight">
+   <string>flat_gray</string>
+  </property>
+  <property name="themeDay">
+   <string>flat_gray_light</string>
+  </property>
+  <property name="numPadName" stdset="0">
+   <string>CDPBaseNumPad</string>
+  </property>
+  <property name="keyPadName" stdset="0">
+   <string>CDPBaseKeyPad</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="CDPBaseMeter" name="meterTemp">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>251</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="meterType">
+     <enum>CDPBaseMeter::Round</enum>
+    </property>
+    <property name="minValue">
+     <double>-20.000000000000000</double>
+    </property>
+    <property name="maxValue">
+     <double>50.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>28.000000000000000</double>
+    </property>
+    <property name="textPrefix">
+     <string>Celsius</string>
+    </property>
+    <property name="textSuffix">
+     <string>Temperature</string>
+    </property>
+    <property name="numPrecision" stdset="0">
+     <number>0</number>
+    </property>
+    <property name="fillColor">
+     <color alpha="204">
+      <red>51</red>
+      <green>153</green>
+      <blue>204</blue>
+     </color>
+    </property>
+    <property name="fillOffset">
+     <double>-2.000000000000000</double>
+    </property>
+    <property name="alarmShow" stdset="0">
+     <bool>true</bool>
+    </property>
+    <property name="alarmSectorLimit">
+     <bool>true</bool>
+    </property>
+    <property name="valueMinNormal">
+     <double>0.000000000000000</double>
+    </property>
+    <property name="valueMaxNormal">
+     <double>25.000000000000000</double>
+    </property>
+    <property name="valueMinWarning">
+     <double>25.000000000000000</double>
+    </property>
+    <property name="valueMaxWarning">
+     <double>35.000000000000000</double>
+    </property>
+    <property name="valueMinWarningHigh">
+     <double>35.000000000000000</double>
+    </property>
+    <property name="valueMaxWarningHigh">
+     <double>50.000000000000000</double>
+    </property>
+    <property name="valueMinError">
+     <double>50.000000000000000</double>
+    </property>
+    <property name="cdpRouting" stdset="0">
+     <string>SenseHATApp.SenseHAT.PressureTemperature.Value</string>
+    </property>
+   </widget>
+   <widget class="CDPBaseMeter" name="meterPressure">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>30</y>
+      <width>251</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="meterType">
+     <enum>CDPBaseMeter::Custom</enum>
+    </property>
+    <property name="minValue">
+     <double>870.000000000000000</double>
+    </property>
+    <property name="maxValue">
+     <double>1100.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>1000.000000000000000</double>
+    </property>
+    <property name="textPrefix">
+     <string>hPa</string>
+    </property>
+    <property name="textSuffix">
+     <string>Pressure</string>
+    </property>
+    <property name="numPrecision" stdset="0">
+     <number>0</number>
+    </property>
+    <property name="fillColor">
+     <color alpha="204">
+      <red>177</red>
+      <green>180</green>
+      <blue>30</blue>
+     </color>
+    </property>
+    <property name="cdpRouting" stdset="0">
+     <string>SenseHATApp.SenseHAT.Pressure.Value</string>
+    </property>
+   </widget>
+   <widget class="CDPBaseMeter" name="meteHumidity">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>30</y>
+      <width>251</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="meterType">
+     <enum>CDPBaseMeter::Custom</enum>
+    </property>
+    <property name="minValue">
+     <double>0.000000000000000</double>
+    </property>
+    <property name="maxValue">
+     <double>100.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>43.000000000000000</double>
+    </property>
+    <property name="textPrefix">
+     <string>%</string>
+    </property>
+    <property name="textSuffix">
+     <string>Humidity</string>
+    </property>
+    <property name="numPrecision" stdset="0">
+     <number>0</number>
+    </property>
+    <property name="fillColor">
+     <color alpha="204">
+      <red>0</red>
+      <green>200</green>
+      <blue>204</blue>
+     </color>
+    </property>
+    <property name="valueMinError">
+     <double>0.000000000000000</double>
+    </property>
+    <property name="valueMaxError">
+     <double>100.000000000000000</double>
+    </property>
+    <property name="cdpRouting" stdset="0">
+     <string>SenseHATApp.SenseHAT.Humidity.Value</string>
+    </property>
+   </widget>
+   <widget class="CDP::GraphWidgets::CdpSignalGraphWidget" name="signalGraph">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>300</y>
+      <width>1071</width>
+      <height>431</height>
+     </rect>
+    </property>
+    <property name="cdpSignals">
+     <stringlist>
+      <string>SenseHATApp.SenseHAT.AccelerationX</string>
+      <string>SenseHATApp.SenseHAT.AccelerationY</string>
+      <string>SenseHATApp.SenseHAT.AccelerationZ</string>
+     </stringlist>
+    </property>
+    <property name="cssFile">
+     <string>:/themes/flat_gray_light/graphs/graph.css</string>
+    </property>
+    <property name="yAxisMinValue">
+     <double>-2.000000000000000</double>
+    </property>
+    <property name="yAxisMaxValue">
+     <double>2.000000000000000</double>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CDPBaseMeter</class>
+   <extends>QWidget</extends>
+   <header>CDPBaseWidgets/CDPBaseMeter.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CDPBaseMainWindow</class>
+   <extends>QMainWindow</extends>
+   <header>CDPBaseWidgets/CDPBaseMainWindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CDP::GraphWidgets::CdpSignalGraphWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>cdp/graphwidgets/cdpsignalgraphwidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

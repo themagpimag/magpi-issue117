@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ProjectConfiguration>
+<!-- Written by CDPStudio 2.2.1, 2022-04-01T11:08:37. -->
+<qtcreator>
+ <data>
+  <variable>ProjectManagerSettings</variable>
+  <valuemap type="QVariantMap">
+   <valuemap type="QVariantMap" key="ApplicationSettings">
+    <value type="QString" key="DeployDirectory">/home/pi/SenseHAT/SenseHATApp</value>
+    <value type="QString" key="DeviceId">192.168.1.112SenseHATwireless_32768</value>
+    <value type="QString" key="TargetFriendlyName">Raspbian ARMv6 32-bit</value>
+   </valuemap>
+  </valuemap>
+ </data>
+</qtcreator>
